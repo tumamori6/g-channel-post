@@ -1,58 +1,51 @@
 require('dotenv').config();
-// const https = require('https');
-const puppeteer = require("puppeteer");
-// const req = https.request(process.env['CONTENTS_URL'], (res) => {
-// 	res.setEncoding('utf8');
-// 	var body = "";
-// 	res.on('data', function (resData) {
-// 		body += resData;
-// 	});
-// 	res.on('end', function () {
-// 		var content = JSON.parse(body)[0];
-// 		console.log(content.url);
-// 	});
-// })
-//req.end();
-//loginAdmin();
+const https = require('https');
+const rp = require('request-promise-native');
+const tw = require('./tw_module.js');
 
-(async () => {
+updateContent = (content_id) => {
 
-	const browser = await puppeteer.launch({
-		headless: true,
-		slowMo: 50,
+	var option = {
+		method: 'POST',
+		uri: process.env['CONTENTS_URL'],
+		form: {
+			posted: 1,
+			content_id: content_id,
+		}
+	};
+
+	return rp(option)
+		.then(function () {
+			return 'update Success';
+		})
+		.catch(err => {
+			console.log(err);
+		});
+
+}
+
+const req = https.request(process.env['CONTENTS_URL'], (res) => {
+	res.setEncoding('utf8');
+	var body = "";
+	res.on('data', function (resData) {
+		body += resData;
 	});
-
-	const page = await browser.newPage();
-
-	await page.goto(process.env['METABIRDS_URL']);
-
-	await page.screenshot({
-		path: 'screenshot.png',
-		fullPage: true,
+	res.on('end', function () {
+		var content = JSON.parse(body)[0];
+		var content_title = content.title.slice(0,50);
+		let post_text = "";
+		post_text += content_title + '\n'; 
+		post_text += content.url   + '\n'; 
+		post_text += '#' + content.category   + ' ' + process.env['DEFAULT_TAG'];
+		updateContent(content.id);
+		tw.updatePost(post_text);
+		console.log(post_text);
 	});
+})
 
-	await browser.close();
+req.end();
 
-})();
-
-
-
-
-
-// async function loginAdmin() {
-
-// 	const browser = await puppeteer.launch({
-// 		args: ['--no-sandbox', '--disable-setuid-sandbox'],
-// 		defaultViewport: { width: 800, height: 200 },
-// 		headless: false,
-// 	});
-
-// 	const page = await browser.newPage();
-
-// 	await page.goto(process.env['METABIRDS_URL']);
-// 	await page.waitForTimeout(1000);
-// 	await page.close();
-// 	await browser.close();
-
-
+// exports.updatePost = () => {
+// 	req.end();
 // }
+
