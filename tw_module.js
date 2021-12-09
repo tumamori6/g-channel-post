@@ -6,6 +6,7 @@ exports.updatePost = async(post_text) => {
 // updatePost = async() => {
 
 	const browser = await puppeteer.launch({
+		args: ['--no-sandbox', '--disable-setuid-sandbox'],
 		headless: true,
 		slowMo: 50,
 	});
