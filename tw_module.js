@@ -34,17 +34,18 @@ exports.updatePost = async(post_text) => {
 	await page.keyboard.up('Control');
 	await page.keyboard.press('Backspace');
 	await page.click('#message_1');
-	// await page.keyboard.type('test'+Date.now());
+
 	await page.keyboard.type(post_text);
 	await page.keyboard.press("Tab");
 	await page.keyboard.press('Enter');
 	await page.waitForTimeout(3000);
 	await page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
 	
-	await page.screenshot({
-		path: 'screenshot.png',
-		fullPage: true,
-	});
+	//local only
+	// await page.screenshot({
+	// 	path: 'screenshot.png',
+	// 	fullPage: true,
+	// });
 
 	await browser.close();
 	

@@ -36,7 +36,8 @@ const req = https.request(process.env['CONTENTS_URL'], (res) => {
 		let post_text = "";
 		post_text += content_title + '\n'; 
 		post_text += content.url   + '\n'; 
-		post_text += '#' + content.category   + ' ' + process.env['DEFAULT_TAG'];
+		// 要件として不要
+		// post_text += '#' + content.category   + ' ' + process.env['DEFAULT_TAG'];
 		updateContent(content.id);
 		tw.updatePost(post_text);
 		console.log(post_text);
