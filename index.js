@@ -1,26 +1,40 @@
 require('dotenv').config();
 const https = require('https');
-const rp = require('request-promise-native');
+// const rp = require('request-promise-native');
+const rq = require('request');
 const tw = require('./tw_module.js');
 
 updateContent = (content_id) => {
 
-	var option = {
-		method: 'POST',
-		uri: process.env['CONTENTS_URL'],
-		form: {
-			posted: 1,
-			content_id: content_id,
+	var options = {
+		url:process.env['CONTENTS_URL'],
+		headers:{
+			"Content-type": "application/x-www-form-urlencoded",
+		},
+		form:{
+			'posted':1,
+			'content_id':content_id,
 		}
-	};
+	}
 
-	return rp(option)
-		.then(function () {
-			return 'update Success';
-		})
-		.catch(err => {
-			console.log(err);
-		});
+	rq.post(options, function (error, response, body) { });
+
+	// var option = {
+	// 	method: 'POST',
+	// 	uri: process.env['CONTENTS_URL'],
+	// 	form: {
+	// 		posted: 1,
+	// 		content_id: content_id,
+	// 	}
+	// };
+
+	// return rp(option)
+	// 	.then(function () {
+	// 		return 'update Success';
+	// 	})
+	// 	.catch(err => {
+	// 		console.log(err);
+	// 	});
 
 }
 
