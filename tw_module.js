@@ -23,14 +23,18 @@ exports.updatePost = async(post_text) => {
 	await page.click('[name="session[password]"]');
 	await page.keyboard.type(process.env.USER_PASS);
 	await page.click('.submit.button.selected');
-
-	// await Promise.all([
-	// 	page.waitForNavigation({ waitUntil: ['load', 'networkidle2'], timeout: 0 }),
-	// 	page.click('.submit.button.selected'),
-	// ]);
 	await page.waitForTimeout(5000);
 
 	//heroku ipでメール認証 初回のみ
+
+	await page.waitForSelector('[name="challenge_response"]');
+	await page.click('[name="challenge_response"]');
+	await page.keyboard.type(process.env.TW_AUTH_MAIL_ADDRESS);
+	await page.keyboard.press("Tab");
+	await page.keyboard.press('Enter');
+	await page.waitForTimeout(5000);
+
+
 	const html = await page.$eval('body', item => {
 		return item.innerHTML;
 	});
