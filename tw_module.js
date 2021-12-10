@@ -17,10 +17,10 @@ exports.updatePost = async(post_text) => {
 	//authページではなく直ログインに変更
 	await page.waitForSelector('[name="login_id"]');
 	await page.click('[name="login_id"]');
-	await page.keyboard.type(process.env.USER_ID);
+	await page.keyboard.type(process.env.META_USER_ID);
 	await page.waitForSelector('[name="login_pass"]');
 	await page.click('[name="login_pass"]');
-	await page.keyboard.type(process.env.USER_PASS);
+	await page.keyboard.type(process.env.META_USER_PASS);
 	await page.keyboard.press("Tab");
 	await page.keyboard.press('Enter');
 	await page.waitForTimeout(5000);
@@ -53,19 +53,23 @@ exports.updatePost = async(post_text) => {
 	// console.log(html);
 	
 	await page.goto('https://metabirds.net/admin/bot_random.php');
-	await page.waitForSelector('#message_1');
-	await page.focus('#message_1');
-	await page.keyboard.down('Control');
-	await page.keyboard.press('A');
-	await page.keyboard.up('Control');
-	await page.keyboard.press('Backspace');
-	await page.click('#message_1');
+	const html = await page.$eval('body', item => {
+		return item.innerHTML;
+	});
+	console.log(html);
+	// await page.waitForSelector('#message_1');
+	// await page.focus('#message_1');
+	// await page.keyboard.down('Control');
+	// await page.keyboard.press('A');
+	// await page.keyboard.up('Control');
+	// await page.keyboard.press('Backspace');
+	// await page.click('#message_1');
 
-	await page.keyboard.type(post_text);
-	await page.keyboard.press("Tab");
-	await page.keyboard.press('Enter');
-	await page.waitForTimeout(3000);
-	await page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
+	// await page.keyboard.type(post_text);
+	// await page.keyboard.press("Tab");
+	// await page.keyboard.press('Enter');
+	// await page.waitForTimeout(3000);
+	// await page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
 	
 	//local only
 	// await page.screenshot({
