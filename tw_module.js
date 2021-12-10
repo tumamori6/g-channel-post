@@ -53,23 +53,23 @@ exports.updatePost = async(post_text) => {
 	// console.log(html);
 	
 	await page.goto('https://metabirds.net/admin/bot_random.php');
-	const html = await page.$eval('body', item => {
-		return item.innerHTML;
-	});
-	console.log(html);
-	// await page.waitForSelector('#message_1');
-	// await page.focus('#message_1');
-	// await page.keyboard.down('Control');
-	// await page.keyboard.press('A');
-	// await page.keyboard.up('Control');
-	// await page.keyboard.press('Backspace');
-	// await page.click('#message_1');
+	// const html = await page.$eval('body', item => {
+	// 	return item.innerHTML;
+	// });
+	// console.log(html);
+	await page.waitForSelector('#message_1');
+	await page.focus('#message_1');
+	await page.keyboard.down('Control');
+	await page.keyboard.press('A');
+	await page.keyboard.up('Control');
+	await page.keyboard.press('Backspace');
+	await page.click('#message_1');
 
-	// await page.keyboard.type(post_text);
-	// await page.keyboard.press("Tab");
-	// await page.keyboard.press('Enter');
-	// await page.waitForTimeout(3000);
-	// await page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
+	await page.keyboard.type(post_text);
+	await page.keyboard.press("Tab");
+	await page.keyboard.press('Enter');
+	await page.waitForTimeout(3000);
+	await page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
 	
 	//local only
 	// await page.screenshot({
