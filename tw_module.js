@@ -22,17 +22,19 @@ exports.updatePost = async(post_text) => {
 	await page.waitForSelector('[name="session[password]"]');
 	await page.click('[name="session[password]"]');
 	await page.keyboard.type(process.env.USER_PASS);
-	await Promise.all([
-		page.waitForNavigation({ waitUntil: ['load', 'networkidle2'], timeout: 0 }),
-		page.click('.submit.button.selected'),
-	]);
+	await page.click('.submit.button.selected');
+
+	// await Promise.all([
+	// 	page.waitForNavigation({ waitUntil: ['load', 'networkidle2'], timeout: 0 }),
+	// 	page.click('.submit.button.selected'),
+	// ]);
 	await page.waitForTimeout(5000);
 
-		//heroku ipでメール認証 初回のみ
-		const html = await page.$eval('body', item => {
-			return item.innerHTML;
-		});
-		console.log(html);
+	//heroku ipでメール認証 初回のみ
+	const html = await page.$eval('body', item => {
+		return item.innerHTML;
+	});
+	console.log(html);
 	
 	// await page.goto('https://metabirds.net/admin/bot_random.php');
 	// await page.waitForSelector('#message_1');
