@@ -13,20 +13,32 @@ exports.updatePost = async(post_text) => {
 	const page = await browser.newPage();
 
 	await page.goto(process.env['METABIRDS_URL']);
-	await page.waitForSelector('.twitter_login_button_w');
-	await page.click('.twitter_login_button_w');
-	await page.waitForTimeout(2000);
-	await page.waitForSelector('[name="session[username_or_email]"]');
-	await page.click('[name="session[username_or_email]"]');
+
+	//authページではなく直ログインに変更
+	await page.waitForSelector('[name="login_id"]');
+	await page.click('[name="login_id"]');
 	await page.keyboard.type(process.env.USER_ID);
-	await page.waitForSelector('[name="session[password]"]');
-	await page.click('[name="session[password]"]');
+	await page.waitForSelector('[name="login_pass"]');
+	await page.click('[name="login_pass"]');
 	await page.keyboard.type(process.env.USER_PASS);
-	await page.click('.submit.button.selected');
+	await page.keyboard.press("Tab");
+	await page.keyboard.press('Enter');
 	await page.waitForTimeout(5000);
 
-	//heroku ipでメール認証 初回のみ
+	//authページパターン
+	// await page.waitForSelector('.twitter_login_button_w');
+	// await page.click('.twitter_login_button_w');
+	// await page.waitForTimeout(2000);
+	// await page.waitForSelector('[name="session[username_or_email]"]');
+	// await page.click('[name="session[username_or_email]"]');
+	// await page.keyboard.type(process.env.USER_ID);
+	// await page.waitForSelector('[name="session[password]"]');
+	// await page.click('[name="session[password]"]');
+	// await page.keyboard.type(process.env.USER_PASS);
+	// await page.click('.submit.button.selected');
+	// await page.waitForTimeout(5000);
 
+	//heroku ipでメール認証 初回のみ
 	// await page.waitForSelector('[name="challenge_response"]');
 	// await page.click('[name="challenge_response"]');
 	// await page.keyboard.type(process.env.TW_AUTH_MAIL_ADDRESS);
