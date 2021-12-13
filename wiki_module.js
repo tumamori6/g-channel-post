@@ -13,11 +13,16 @@ getEncodedDate = () => {
 
 getAnniversary = (page_body) => {
 
-	var first_opt  = page_body.substr(page_body.indexOf('== 記念日・年中行事 ==') + 1);
-	var second_opt = first_opt.substr(0, first_opt.indexOf('== フィクションのできごと =='));
-	var third_opt  = second_opt.substr(0, second_opt.indexOf('<!--'));
+	var all_anniversary   = page_body.match(/== 記念日・年中行事 ==[\s\S]*== フィクションのできごと ==/);
+	var anniversary_list  = all_anniversary[0].match(/\*.+\n/g); 
+	let targets = [];
+	anniversary_list.forEach((val,key) => {
+		if(val.includes('の日') && !val.includes('この日') && val.includes('JPN')){
+			targets += val;
+		}
+	});
 
-	return third_opt;
+	return targets;
 	
 }
 
