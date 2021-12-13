@@ -22,6 +22,8 @@ getAnniversary = (page_body) => {
 		}
 	});
 
+	console.log(anniversary_list);
+
 	return targets;
 	
 }
