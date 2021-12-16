@@ -11,6 +11,14 @@ getEncodedDate = () => {
 	
 }
 
+getDayName = (str) => {
+	opt_a          = str.substring(str.indexOf(']') + 1);
+	opt_b          = opt_a.substring(opt_a.indexOf(']') + 1);
+	day_name_last  = opt_b.substring(0,opt_b.indexOf('の日'));
+	day_name_first = str.match(/\[(.+)\]/)[1].match(/\[(.+)\]/)[1];
+	return day_name_first + day_name_last;
+}
+
 getAnniversary = (page_body) => {
 
 	var all_anniversary   = page_body.match(/== 記念日・年中行事 ==[\s\S]*== フィクションのできごと ==/);
@@ -18,11 +26,9 @@ getAnniversary = (page_body) => {
 	let targets = [];
 	anniversary_list.forEach((val,key) => {
 		if(val.includes('の日') && !val.includes('この日') && val.includes('JPN')){
-			targets += val;
+			targets += getDayName(val);
 		}
 	});
-
-	console.log(anniversary_list);
 
 	return targets;
 	
