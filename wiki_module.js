@@ -16,7 +16,7 @@ getDayName = (str) => {
 	opt_b          = opt_a.substring(opt_a.indexOf(']') + 1);
 	day_name_last  = opt_b.substring(0,opt_b.indexOf('の日'));
 	day_name_first = str.match(/\[(.+)\]/)[1].match(/\[(.+)\]/)[1];
-	return day_name_first + day_name_last;
+	return '・' + day_name_first + day_name_last + 'の日';
 }
 
 getAnniversary = (page_body) => {
@@ -25,7 +25,7 @@ getAnniversary = (page_body) => {
 	var anniversary_list  = all_anniversary[0].match(/\*.+\n/g); 
 	let targets = [];
 	anniversary_list.forEach((val,key) => {
-		if(val.includes('の日') && !val.includes('この日') && val.includes('JPN')){
+		if(val.includes('の日') && !val.includes('この日')){
 			targets += getDayName(val);
 		}
 	});
