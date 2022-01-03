@@ -21,7 +21,9 @@
 ##### UPDATE_TARGET_2...1と同じ  
 ### 6.envをherokuに登録
 `heroku config:set $(cat .env)`  
-### 7.heroku scheduler設定  
+### 7.heroku scheduler設定
+`npm run index`
+`npm run wiki`  
 
 # 注意点
 ##### ローカルではメタバードにログイン、更新などができるのにheroku側で実行して更新できない場合、twitterの認証画面が出ている場合があるため、その場合はindex.jsのコメントアウトしている認証用コードで認証してください。
