@@ -1,5 +1,10 @@
 require('dotenv').config();
 const https = require('https');
+const tw = require('./tw_module.js');
+const op = {
+	'update_url':process.env['UPDATE_URL_2'],
+	'update_target':process.env['UPDATE_TARGET_2'],
+};
 
 getEncodedDate = () => {
 
@@ -47,7 +52,10 @@ const req = https.request(wiki_url, (res) => {
 		var page_id = Object.keys(content.query.pages)[0]; 
 		var page_body = content.query.pages[page_id].revisions[0]['*'];
 		var anniversary = getAnniversary(page_body);
-		console.log(anniversary);
+		let post_text = "今日は何の日？" + '\n'; 
+		post_text += anniversary;
+		tw.updatePost(post_text,op);
+		//console.log(anniversary);
 	});
 })
 

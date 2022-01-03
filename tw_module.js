@@ -1,7 +1,7 @@
 require('dotenv').config();
 const puppeteer = require("puppeteer");
 
-exports.updatePost = async(post_text) => {
+exports.updatePost = async(post_text,op) => {
 
 	const browser = await puppeteer.launch({
 		args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -47,23 +47,24 @@ exports.updatePost = async(post_text) => {
 	// await page.waitForTimeout(5000);
 
 
+	//デバッグ用
 	// const html = await page.$eval('body', item => {
 	// 	return item.innerHTML;
 	// });
 	// console.log(html);
 	
-	await page.goto('https://metabirds.net/admin/bot_random.php');
+	await page.goto(op.update_url);
 	// const html = await page.$eval('body', item => {
 	// 	return item.innerHTML;
 	// });
 	// console.log(html);
-	await page.waitForSelector('#message_1');
-	await page.focus('#message_1');
+	await page.waitForSelector(op.update_target);
+	await page.focus(op.update_target);
 	await page.keyboard.down('Control');
 	await page.keyboard.press('A');
 	await page.keyboard.up('Control');
 	await page.keyboard.press('Backspace');
-	await page.click('#message_1');
+	await page.click(process.env['UPDATE_TARGET_1']);
 
 	await page.keyboard.type(post_text);
 	await page.keyboard.press("Tab");
@@ -71,7 +72,7 @@ exports.updatePost = async(post_text) => {
 	await page.waitForTimeout(3000);
 	await page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
 	
-	//local only
+	//local 	デバッグ用
 	// await page.screenshot({
 	// 	path: 'screenshot.png',
 	// 	fullPage: true,

@@ -2,6 +2,10 @@ require('dotenv').config();
 const https = require('https');
 const rq = require('request');
 const tw = require('./tw_module.js');
+const op = {
+	'update_url':process.env['UPDATE_URL_1'],
+	'update_target':process.env['UPDATE_TARGET_1'],
+};
 
 updateContent = (content_id) => {
 
@@ -33,7 +37,7 @@ const req = https.request(process.env['CONTENTS_URL'], (res) => {
 		post_text += content_title + '\n'; 
 		post_text += content.url   + '\n'; 
 		updateContent(content.id);
-		tw.updatePost(post_text);
+		tw.updatePost(post_text,op);
 		console.log(post_text);
 	});
 })
