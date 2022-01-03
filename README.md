@@ -10,8 +10,8 @@
 ### 4.メタバードで「ガルちゃん用ツイート」と「今日は何の日用ツイート」を登録する  
 ### 5.env.sampleから.envを作って各変数設定
 ##### CONTENTS_URL...apiのURL
-##### USER_ID...twitterののユーザーID
-##### USER_PASS...twitterののパスワード
+##### USER_ID...twitterのユーザーID
+##### USER_PASS...twitterのパスワード
 ##### META_USER_ID...メタバードのユーザーID
 ##### META_USER_PASS...メタバードのパスワード
 ##### TW_AUTH_MAIL_ADDRESS...twitterアカウントのメールアドレス
@@ -22,7 +22,7 @@
 ### 6.envをherokuに登録
 `heroku config:set $(cat .env)`  
 ### 7.heroku scheduler設定
-`npm run index`
+`npm run index`  
 `npm run wiki`  
 
 # 注意点
